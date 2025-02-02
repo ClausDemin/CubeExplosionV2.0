@@ -12,7 +12,7 @@ using UnityEngine;
 
 namespace Assets.CodeBase.ExplosiveCubes.View
 {
-    public class ExplosiveObjectsFactory: MonoBehaviour, IExplosiveObjectsFactory, INeedInitialization
+    public class ExplosiveObjectsFactory : MonoBehaviour, IExplosiveObjectsFactory, INeedInitialization
     {
         [SerializeField] private ExplosiveObject _prefab;
 
@@ -38,11 +38,11 @@ namespace Assets.CodeBase.ExplosiveCubes.View
             CreatePrewarmedInstances();
         }
 
-        private void CreatePrewarmedInstances() 
+        private void CreatePrewarmedInstances()
         {
-            if (IsInitialized && _prewarmedPositions.Count > 0) 
+            if (IsInitialized && _prewarmedPositions.Count > 0)
             {
-                foreach (var position in _prewarmedPositions) 
+                foreach (var position in _prewarmedPositions)
                 {
                     Create(position, _prefab.transform.rotation, _initialGeneration);
                 }
@@ -53,12 +53,12 @@ namespace Assets.CodeBase.ExplosiveCubes.View
         (
             ISeparableEntityFactory entityFactory,
             IExploderFactory exploderFactory,
-            float scaleOverGenerationFactor, 
-            int minChildCount, 
-            int maxChildCount, 
+            float scaleOverGenerationFactor,
+            int minChildCount,
+            int maxChildCount,
             int initialGeneration
-        ) 
-        { 
+        )
+        {
             _entityFactory = entityFactory;
             _presenterFactory = new ExplosiveObjectPresenterFactory();
             _exploderFactory = exploderFactory;
@@ -67,12 +67,14 @@ namespace Assets.CodeBase.ExplosiveCubes.View
             _minChildCount = minChildCount;
             _maxChildCount = maxChildCount;
 
+            _initialGeneration = initialGeneration;
+
             IsInitialized = true;
         }
 
-        public IExplosiveObject Create(Vector3 position, Quaternion rotation, int generation) 
-        { 
-            if (IsInitialized) 
+        public IExplosiveObject Create(Vector3 position, Quaternion rotation, int generation)
+        {
+            if (IsInitialized)
             {
                 GameObject instance = Instantiate(_prefab.gameObject, position, rotation);
 
@@ -86,6 +88,8 @@ namespace Assets.CodeBase.ExplosiveCubes.View
 
                     explosiveObject.Init(presenter);
 
+                    explosiveObject.gameObject.transform.localScale = _baseScale * (float)Math.Pow(_scaleOverGenerationFactor, generation);
+
                     return explosiveObject;
                 }
 
@@ -95,9 +99,9 @@ namespace Assets.CodeBase.ExplosiveCubes.View
             return default;
         }
 
-        public IExplosiveObject Create(IExplosiveObject parent, int generation) 
+        public IExplosiveObject Create(IExplosiveObject parent, int generation)
         {
-            if (IsInitialized) 
+            if (IsInitialized)
             {
                 Vector3 parentPosition = parent.gameObject.transform.position;
                 Quaternion rotation = _prefab.transform.rotation;
@@ -107,9 +111,6 @@ namespace Assets.CodeBase.ExplosiveCubes.View
 
                 Vector3 position = UserUtils.GetRandomVector(parentPosition, innerSpawnRadius, outerSpawnRadius);
                 IExplosiveObject explosiveObject = Create(position, rotation, generation);
-
-                explosiveObject.gameObject.transform.localScale =
-                    _baseScale * (float)Math.Pow(_scaleOverGenerationFactor, generation);
 
                 return explosiveObject;
             }
