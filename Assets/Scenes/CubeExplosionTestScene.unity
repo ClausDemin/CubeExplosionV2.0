@@ -1064,7 +1064,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _baseSeparateChance: 1
   _separateOverGenerationFactor: 0.5
-  _scaleOverGenerationFactor: 0.5
+  _scaleOverGenerationFactor: 0.33333334
   _minChildCount: 2
   _maxChildCount: 6
   _initialGeneration: 0

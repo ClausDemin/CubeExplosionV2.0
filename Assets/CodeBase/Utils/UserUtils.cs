@@ -14,7 +14,7 @@ namespace Assets.Scripts.Utils
 
         public static int GetRandomInt(int minValue = int.MinValue, int maxValue = int.MaxValue)
         {
-            return s_random.Next(minValue, maxValue + 1);
+            return s_random.Next(minValue, maxValue);
         }
 
         public static float GetRandomFloat(float minValue = 0, float maxValue = 1)
@@ -51,6 +51,22 @@ namespace Assets.Scripts.Utils
             var resultVector = new Vector3(to.x-from.x, to.y - from.y, to.z - from.z);
 
             return resultVector.magnitude;
+        }
+
+        public static Array Shuffle(this Array array)
+        {
+            for (int i = array.Length - 1; i > 0; i--)
+            {
+                int indexToSwap = s_random.Next(0, i);
+
+                var buffer = array.GetValue(indexToSwap);
+                var elementToSwap = array.GetValue(i);
+
+                array.SetValue(elementToSwap, indexToSwap);
+                array.SetValue(buffer, i);
+            }
+
+            return array;
         }
     }
 }

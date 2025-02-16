@@ -57,7 +57,7 @@ namespace Assets.CodeBase.ExplosiveCubes.Model
                 throw new ArgumentException();
             }
 
-            return UserUtils.GetRandomInt(minChildCount, maxChildCount);
+            return UserUtils.GetRandomInt(minChildCount, maxChildCount + 1);
         }
     }
 }

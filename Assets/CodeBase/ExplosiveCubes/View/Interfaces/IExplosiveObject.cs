@@ -6,7 +6,7 @@ namespace Assets.CodeBase.ExplosiveCubes.View.Interfaces
 {
     public interface IExplosiveObject
     {
-        public GameObject gameObject { get; }
+        public GameObject GameObject { get; }
         public void Init(IExplosiveObjectPresenter presenter);
     }
 }

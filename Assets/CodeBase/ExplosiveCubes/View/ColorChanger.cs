@@ -7,22 +7,22 @@ namespace Assets.CodeBase.ExplosiveCubes.View
     {
         private MeshRenderer _renderer;
 
-        private void Start()
+        private void Awake()
         {
-            SetRandomColor();
+            gameObject.TryGetComponent(out _renderer);
         }
 
-        private void SetRandomColor()
+        private void Start()
         {
-            if (gameObject.TryGetComponent(out _renderer))
+            SelectRandomColor();
+        }
+
+        private void SelectRandomColor()
+        {
+            if (_renderer != null)
             {
-                float redComponent = UserUtils.GetRandomFloat();
-                float greenComponent = UserUtils.GetRandomFloat();
-                float blueComponent = UserUtils.GetRandomFloat();
-
-                Color randomColor = new Color(redComponent, greenComponent, blueComponent);
-
-                _renderer.material.color = randomColor;
+                _renderer.material.color = 
+                    new Color(UserUtils.GetRandomFloat(), UserUtils.GetRandomFloat(), UserUtils.GetRandomFloat());
             }
         }
     }

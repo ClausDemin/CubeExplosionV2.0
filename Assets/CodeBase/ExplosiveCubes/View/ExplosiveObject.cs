@@ -14,12 +14,24 @@ namespace Assets.CodeBase.ExplosiveCubes.View
 
         public bool IsInitialized { get; private set; }
 
+        public GameObject GameObject => gameObject;
+
         private void OnMouseUpAsButton()
         {
-            OnClicked();
+            Click();
         }
 
-        private void OnClicked()
+        public void Init(IExplosiveObjectPresenter presenter)
+        {
+            if (IsInitialized == false)
+            {
+                _presenter = presenter;
+
+                IsInitialized = true;
+            }
+        }
+
+        private void Click()
         {
             if (IsInitialized)
             {
@@ -27,16 +39,6 @@ namespace Assets.CodeBase.ExplosiveCubes.View
                 {
                     Instantiate(_explosionVFX.gameObject, transform.position, Quaternion.identity);
                 }
-            }
-        }
-
-        public void Init(IExplosiveObjectPresenter presenter) 
-        {
-            if (IsInitialized == false) 
-            {
-                _presenter = presenter;
-
-                IsInitialized = true;
             }
         }
     }

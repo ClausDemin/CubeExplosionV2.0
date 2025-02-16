@@ -22,7 +22,6 @@ namespace Assets.CodeBase.ExplosiveCubes.View
         private ISeparableEntityFactory _entityFactory;
         private IExploderFactory _exploderFactory;
 
-        private float _scaleOverGenerationFactor;
         private int _minChildCount;
         private int _maxChildCount;
 
@@ -30,6 +29,7 @@ namespace Assets.CodeBase.ExplosiveCubes.View
         private int _initialGeneration;
 
         public bool IsInitialized { get; private set; }
+        public float ScaleOverGenerationFactor { get; private set; }
 
         private void Start()
         {
@@ -63,12 +63,12 @@ namespace Assets.CodeBase.ExplosiveCubes.View
             _presenterFactory = new ExplosiveObjectPresenterFactory();
             _exploderFactory = exploderFactory;
 
-            _scaleOverGenerationFactor = scaleOverGenerationFactor;
             _minChildCount = minChildCount;
             _maxChildCount = maxChildCount;
 
             _initialGeneration = initialGeneration;
 
+            ScaleOverGenerationFactor = scaleOverGenerationFactor;
             IsInitialized = true;
         }
 
@@ -88,31 +88,12 @@ namespace Assets.CodeBase.ExplosiveCubes.View
 
                     explosiveObject.Init(presenter);
 
-                    explosiveObject.gameObject.transform.localScale = _baseScale * (float)Math.Pow(_scaleOverGenerationFactor, generation);
+                    explosiveObject.GameObject.transform.localScale = _baseScale * (float)Math.Pow(ScaleOverGenerationFactor, generation);
 
                     return explosiveObject;
                 }
 
                 Destroy(instance);
-            }
-
-            return default;
-        }
-
-        public IExplosiveObject Create(IExplosiveObject parent, int generation)
-        {
-            if (IsInitialized)
-            {
-                Vector3 parentPosition = parent.gameObject.transform.position;
-                Quaternion rotation = _prefab.transform.rotation;
-
-                float innerSpawnRadius = 2;
-                float outerSpawnRadius = 4;
-
-                Vector3 position = UserUtils.GetRandomVector(parentPosition, innerSpawnRadius, outerSpawnRadius);
-                IExplosiveObject explosiveObject = Create(position, rotation, generation);
-
-                return explosiveObject;
             }
 
             return default;
