@@ -13,8 +13,7 @@ GameObject:
   - component: {fileID: 365938072424320956}
   - component: {fileID: 1470426659386732796}
   - component: {fileID: 2890489660751009191}
-  - component: {fileID: 2929259584493941205}
-  - component: {fileID: -2158030970981018478}
+  - component: {fileID: 3644902243300012144}
   m_Layer: 0
   m_Name: ExplosiveObject
   m_TagString: Untagged
@@ -135,7 +134,7 @@ Rigidbody:
   m_Interpolate: 1
   m_Constraints: 0
   m_CollisionDetection: 1
---- !u!114 &2929259584493941205
+--- !u!114 &3644902243300012144
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -144,23 +143,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 3061256320775882242}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: cac3041edeee1fa4ebc9b88e351a0bf8, type: 3}
+  m_Script: {fileID: 11500000, guid: e2bd0846dea106e42b92010bbe94cc25, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _explosionVFX: {fileID: 8653713205617897592, guid: 025c75910704cec439b7c7e9c9fa9fb6, type: 3}
-  <ExplosionForce>k__BackingField: 350
-  <ExplosionForceOverGenerationFactor>k__BackingField: 1.5
-  <ExplosionRadius>k__BackingField: 5
-  <ExplosionRadiusOverGenerationFactor>k__BackingField: 1.5
---- !u!114 &-2158030970981018478
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 3061256320775882242}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 4c667c4b7b72f434ba36474d3e6bf077, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
+  _explosionEffects: {fileID: 8653713205617897592, guid: 025c75910704cec439b7c7e9c9fa9fb6, type: 3}
