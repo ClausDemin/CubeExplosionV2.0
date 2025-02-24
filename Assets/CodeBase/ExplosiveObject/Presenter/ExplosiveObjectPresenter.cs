@@ -13,7 +13,7 @@ namespace Assets.CodeBase.ExplosionFeature.Presenter
         private ExplosiveObject _explosiveObject;
         private Separator _separator;
         private Exploder _exploder;
-        
+
         private ExplosiveObjectViewFactory _explosiveObjectViewFactory;
         private ExplosionVFXFactory _explosionVFXFactory;
 
@@ -34,7 +34,7 @@ namespace Assets.CodeBase.ExplosionFeature.Presenter
 
         public void HandleClick(Vector3 position, Vector3 localScale)
         {
-            List<Rigidbody> involvedBodies = new List<Rigidbody>();
+            List<Rigidbody> involvedBodies = null;
 
             int generation = _explosiveObject.Generation;
 
@@ -44,13 +44,9 @@ namespace Assets.CodeBase.ExplosionFeature.Presenter
                     = CreateShards(shardsCount, position, localScale, generation + 1);
 
                 involvedBodies = shards.Select(component => component.Rigidbody).ToList();
+            }
 
-                _exploder.Explode(generation, position, involvedBodies);
-            }
-            else
-            {
-                _exploder.Explode(generation, position);
-            }
+            _exploder.Explode(generation, position);
 
             _explosionVFXFactory.Create(position);
         }
