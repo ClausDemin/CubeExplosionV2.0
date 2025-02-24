@@ -1,7 +1,7 @@
 ﻿using System.Collections.Generic;
 using UnityEngine;
 
-namespace Assets.CodeBase.ExplosiveObject.Model
+namespace Assets.CodeBase.ExplosionFeature.Model
 {
     public static class PositionCalculator
     {

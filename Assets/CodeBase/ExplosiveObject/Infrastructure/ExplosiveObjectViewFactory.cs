@@ -1,12 +1,12 @@
 ﻿using Assets.CodeBase.ExplosiveSpore.View;
-using Assets.CodeBase.ExplosiveObject.Presenter;
-using Assets.CodeBase.ExplosiveObject.View;
+using Assets.CodeBase.ExplosionFeature.Presenter;
+using Assets.CodeBase.ExplosionFeature.View;
 using Assets.CodeBase.UserUtils;
 using System;
 using System.Collections.Generic;
 using UnityEngine;
 
-namespace Assets.CodeBase.ExplosiveObject.Infrastructure
+namespace Assets.CodeBase.ExplosionFeature.Infrastructure
 {
     public class ExplosiveObjectViewFactory : MonoBehaviour
     {

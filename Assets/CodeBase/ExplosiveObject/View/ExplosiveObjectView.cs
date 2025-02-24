@@ -1,7 +1,7 @@
-﻿using Assets.CodeBase.ExplosiveObject.Presenter;
+﻿using Assets.CodeBase.ExplosionFeature.Presenter;
 using UnityEngine;
 
-namespace Assets.CodeBase.ExplosiveObject.View
+namespace Assets.CodeBase.ExplosionFeature.View
 {
     [RequireComponent(typeof(Rigidbody))]
     public class ExplosiveObjectView : MonoBehaviour
@@ -15,6 +15,8 @@ namespace Assets.CodeBase.ExplosiveObject.View
             _presenter = presenter;
         }
 
+        public Rigidbody Rigidbody => _body;
+
         private void Awake()
         {
             _body = GetComponent<Rigidbody>();
@@ -25,11 +27,6 @@ namespace Assets.CodeBase.ExplosiveObject.View
             _presenter.HandleClick(transform.position, transform.localScale);
 
             Destroy(gameObject);
-        }
-
-        public Rigidbody GetRigidbody()
-        { 
-            return _body;
         }
     }
 }

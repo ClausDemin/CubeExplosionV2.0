@@ -1,26 +1,29 @@
 ﻿using Assets.CodeBase.UserUtils;
+using System;
 
-namespace Assets.CodeBase.ExplosiveObject.Model
+namespace Assets.CodeBase.ExplosionFeature.Model
 {
     public class Separator
     {
-        private float _separationChance;
+        private float _baseSeparationChance;
+        private float _separationChanceOverGenerationFactor;
 
         private int _minShardsCount;
         private int _maxShardsCount;
 
-        public Separator(float separationChance, int minShardsCount, int maxShardsCount)
+        public Separator(float baseSeparationChance, float separationOverGenerationFactor, int minShardsCount, int maxShardsCount)
         {
-            _separationChance = separationChance;
+            _baseSeparationChance = baseSeparationChance;
+            _separationChanceOverGenerationFactor = separationOverGenerationFactor;
             _minShardsCount = minShardsCount;
             _maxShardsCount = maxShardsCount;
         }
 
-        public bool TrySeparate(out int shardsCount)
+        public bool TrySeparate(int generation, out int shardsCount)
         {
             shardsCount = 0;
 
-            if (IsSeparated())
+            if (IsSeparated(generation))
             {
                 shardsCount = Randomizer.GetRandomInt(_minShardsCount, _maxShardsCount + 1);
 
@@ -30,9 +33,14 @@ namespace Assets.CodeBase.ExplosiveObject.Model
             return false;
         }
 
-        private bool IsSeparated()
+        private bool IsSeparated(int generation)
         {
-            return _separationChance > Randomizer.GetRandomFloat();
+            return CalculateSeparationChance(generation) > Randomizer.GetRandomFloat();
+        }
+
+        private float CalculateSeparationChance(int generation)
+        {
+            return _baseSeparationChance * (float)Math.Pow(_separationChanceOverGenerationFactor, generation);
         }
     }
 }

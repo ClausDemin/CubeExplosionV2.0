@@ -1,11 +1,13 @@
-﻿using Assets.CodeBase.ExplosiveObject.Presenter;
-using Assets.CodeBase.ExplosiveObject.View;
+﻿using Assets.CodeBase.ExplosionFeature.Model;
+using Assets.CodeBase.ExplosionFeature.Presenter;
+using Assets.CodeBase.ExplosionFeature.View;
 
-namespace Assets.CodeBase.ExplosiveObject.Infrastructure
+namespace Assets.CodeBase.ExplosionFeature.Infrastructure
 {
     public class ExplosiveObjectPresenterFactory
     {
-        private ExplosiveObjectFactory _factory;
+        private Separator _separator;
+        private Exploder _exploder;
 
         public ExplosiveObjectPresenterFactory(
             float baseSeparationChance,
@@ -17,20 +19,18 @@ namespace Assets.CodeBase.ExplosiveObject.Infrastructure
             float explosionForceOverGenerationFactor,
             float explosionRadiusOverGenerationFactor)
         {
-            _factory = new ExplosiveObjectFactory(
-                baseSeparationChance,
-                separationChanceOverGenerationFactor,
-                minShardsCount,
-                maxShardsCount,
-                baseExplosionForce,
-                baseExplosionRadius,
-                explosionForceOverGenerationFactor,
-                explosionRadiusOverGenerationFactor);
+            _separator =
+                new Separator(baseSeparationChance, separationChanceOverGenerationFactor, minShardsCount, maxShardsCount);
+
+            _exploder =
+                new Exploder(baseExplosionForce, baseExplosionRadius, explosionForceOverGenerationFactor, explosionRadiusOverGenerationFactor);
         }
 
         public ExplosiveObjectPresenter Create(ExplosiveObjectViewFactory viewFactory, ExplosionVFXFactory explosionVFXFactory, int generation)
         {
-            return new ExplosiveObjectPresenter(_factory, viewFactory, explosionVFXFactory, generation);
+            ExplosiveObject explosiveObject = new ExplosiveObject(generation);
+
+            return new ExplosiveObjectPresenter(explosiveObject, _separator, _exploder, viewFactory, explosionVFXFactory);
         }
     }
 }

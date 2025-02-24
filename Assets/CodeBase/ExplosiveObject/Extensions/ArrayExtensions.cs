@@ -1,11 +1,11 @@
 ﻿using Assets.CodeBase.UserUtils;
 using System;
 
-namespace Assets.CodeBase.ExplosiveObject.Extensions
+namespace Assets.CodeBase.ExplosionFeature.Extensions
 {
     public static class ArrayExtensions
     {
-        public static Array Shuffle(this Array array)
+        public static T[] Shuffle<T>(this T[] array)
         {
             for (int i = array.Length - 1; i > 0; i--)
             {

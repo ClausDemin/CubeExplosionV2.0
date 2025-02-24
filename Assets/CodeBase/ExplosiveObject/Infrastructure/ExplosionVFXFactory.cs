@@ -1,7 +1,7 @@
 ﻿using Assets.CodeBase.ExplosiveSpore.View;
 using UnityEngine;
 
-namespace Assets.CodeBase.ExplosiveObject.View
+namespace Assets.CodeBase.ExplosionFeature.View
 {
     public class ExplosionVFXFactory
     {
